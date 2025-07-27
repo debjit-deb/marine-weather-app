@@ -8,12 +8,15 @@ import {
   LinearScale,
   Legend,
   Tooltip,
+  ChartOptions,
 } from "chart.js";
 import { Card } from "../components/ui/card";
 
 ChartJS.register(LineElement, PointElement, CategoryScale, LinearScale, Legend, Tooltip);
 
 export default function MarineChart({ data }: { data: any }) {
+  if (!data || !data.hourly || !data.hourly.time) return null;
+
   const labels = data.hourly.time.map((t: string) =>
     new Date(t).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
   );
@@ -23,28 +26,28 @@ export default function MarineChart({ data }: { data: any }) {
     datasets: [
       {
         label: "Wave Height (m)",
-        data: data.hourly.wave_height,
+        data: data.hourly.wave_height || [],
         borderColor: "blue",
         backgroundColor: "rgba(0, 0, 255, 0.1)",
         fill: true,
       },
       {
         label: "Wave Direction (°)",
-        data: data.hourly.wave_direction,
+        data: data.hourly.wave_direction || [],
         borderColor: "green",
         backgroundColor: "rgba(0, 128, 0, 0.1)",
         fill: true,
       },
       {
         label: "Wind Wave Height (m)",
-        data: data.hourly.wind_wave_height,
+        data: data.hourly.wind_wave_height || [],
         borderColor: "orange",
         backgroundColor: "rgba(255, 165, 0, 0.1)",
         fill: true,
       },
       {
         label: "Wind Wave Direction (°)",
-        data: data.hourly.wind_wave_direction,
+        data: data.hourly.wind_wave_direction || [],
         borderColor: "red",
         backgroundColor: "rgba(255, 0, 0, 0.1)",
         fill: true,
@@ -52,11 +55,14 @@ export default function MarineChart({ data }: { data: any }) {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     plugins: {
-      legend: { position: "top" as const },
-      tooltip: { mode: "index", intersect: false },
+      legend: { position: "top" },
+      tooltip: {
+        mode: "index",
+        intersect: false,
+      },
     },
     scales: {
       x: { title: { display: true, text: "Time" } },

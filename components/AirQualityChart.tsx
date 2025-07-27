@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   Chart as ChartJS,
@@ -8,6 +7,7 @@ import {
   LinearScale,
   Tooltip,
   Legend,
+  ChartOptions,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
@@ -48,11 +48,14 @@ const AirQualityChart: React.FC<AirQualityChartProps> = ({ data }) => {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     plugins: {
-      legend: { position: "top" as const },
-      tooltip: { mode: "index", intersect: false },
+      legend: { position: "top" },
+      tooltip: {
+        mode: "index",
+        intersect: false,
+      },
     },
     scales: {
       x: { title: { display: true, text: "Time" } },

@@ -8,6 +8,7 @@ import {
   LinearScale,
   Legend,
   Tooltip,
+  ChartOptions,
 } from "chart.js";
 import { Card } from "../components/ui/card";
 
@@ -75,11 +76,14 @@ export default function ClimateChangeChart({ data }: { data: any }) {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     plugins: {
-      legend: { position: "top" as const },
-      tooltip: { mode: "index", intersect: false },
+      legend: { position: "top" },
+      tooltip: {
+        mode: "index",
+        intersect: false,
+      },
     },
     scales: {
       x: { title: { display: true, text: "Date" } },
@@ -89,7 +93,9 @@ export default function ClimateChangeChart({ data }: { data: any }) {
 
   return (
     <Card className="mt-6 p-4 bg-white dark:bg-gray-900 shadow-md">
-      <h2 className="text-lg font-semibold mb-4">Climate Model Temperature Trends</h2>
+      <h2 className="text-lg font-semibold mb-4">
+        Climate Model Temperature Trends
+      </h2>
       <Line data={chartData} options={options} />
     </Card>
   );

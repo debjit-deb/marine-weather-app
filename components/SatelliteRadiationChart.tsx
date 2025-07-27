@@ -8,6 +8,7 @@ import {
   LinearScale,
   Legend,
   Tooltip,
+  ChartOptions,
 } from "chart.js";
 import { Card } from "../components/ui/card";
 
@@ -54,11 +55,14 @@ export default function SatelliteRadiationChart({ data }: { data: any }) {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     plugins: {
-      legend: { position: "top" as const },
-      tooltip: { mode: "index", intersect: false },
+      legend: { position: "top" },
+      tooltip: {
+        mode: "index",
+        intersect: false,
+      },
     },
     scales: {
       x: { title: { display: true, text: "Time" } },
