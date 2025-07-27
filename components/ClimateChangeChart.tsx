@@ -78,7 +78,7 @@ export default function ClimateChangeChart({ data }: { data: any }) {
   const options = {
     responsive: true,
     plugins: {
-      legend: { position: "top" },
+      legend: { position: "top" as const },
       tooltip: { mode: "index", intersect: false },
     },
     scales: {

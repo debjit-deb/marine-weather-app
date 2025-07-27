@@ -51,7 +51,7 @@ const AirQualityChart: React.FC<AirQualityChartProps> = ({ data }) => {
   const options = {
     responsive: true,
     plugins: {
-      legend: { position: "top" },
+      legend: { position: "top" as const },
       tooltip: { mode: "index", intersect: false },
     },
     scales: {
